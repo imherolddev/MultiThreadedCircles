@@ -3,39 +3,47 @@
  */
 package com.imherolddev.multithreadedcircles;
 
+import java.util.Random;
+
+import android.graphics.Color;
+
 /**
  * @author imherolddev
- *
+ * 
  */
 public class Circle {
-	
+
+	static int VELOCITY;
+
 	private int x;
 	private int y;
 	private int xVelocity;
 	private int yVelocity;
-	private int degrees;
+	private double degrees;
 	private int radius;
 	private int color;
-	
+
+	private Random random = new Random();
+
 	/**
 	 * Create a circle with given parameters
-	 * @param x - the x to set
-	 * @param y - the y to set
-	 * @param velocity - the velocity to set
-	 * @param degrees - the degrees to set
-	 * @param radius - the radius to set
-	 * @param color - the color to set
+	 * 
+	 * @param width
+	 *            - the width to set
+	 * @param height
+	 *            - the height to set
+	 * 
 	 */
-	public Circle(int x, int y, int velocity, int degrees, int radius, int color) {
-		
+	public Circle(int x, int y) {
+
 		this.x = x;
 		this.y = y;
-		this.xVelocity = velocity;
-		this.yVelocity = velocity;
-		this.degrees = degrees;
-		this.radius = radius;
-		this.color = color;
-		
+
+		Circle.VELOCITY = random.nextInt(30) + 20;
+		this.color = (int) ((random.nextDouble() * Color.BLACK) - 1);
+		this.radius = random.nextInt(100) + 25;
+		this.degrees = random.nextInt(360);
+
 	}
 
 	public int getX() {
@@ -61,21 +69,17 @@ public class Circle {
 	public void setXVelocity(int velocity) {
 		this.xVelocity = velocity;
 	}
-	
+
 	public int getYVelocity() {
 		return yVelocity;
 	}
-	
+
 	public void setYVelocity(int velocity) {
 		this.yVelocity = velocity;
 	}
 
-	public int getDegrees() {
+	public double getDegrees() {
 		return degrees;
-	}
-
-	public void setDegrees(int degrees) {
-		this.degrees = degrees;
 	}
 
 	public int getRadius() {

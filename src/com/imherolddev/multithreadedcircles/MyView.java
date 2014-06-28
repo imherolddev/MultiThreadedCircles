@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.view.View;
@@ -16,12 +15,11 @@ import android.view.View;
  * 
  */
 public class MyView extends View {
+	
+	private int width;
+	private int height;
 
-	private int velocity = 10;
-
-	private Circle circleA;
-	private Circle circleB;
-	private Circle circleC;
+	private int numCircles = 100;
 
 	private Paint paint = new Paint();
 
@@ -30,7 +28,7 @@ public class MyView extends View {
 	private Handler h;
 	private Runnable r;
 
-	private final int FRAME_RATE = 30;
+	private final int FRAME_RATE = 20;
 
 	/**
 	 * Constructor with context
@@ -41,12 +39,20 @@ public class MyView extends View {
 	public MyView(Context context) {
 		super(context);
 
-		circleA = new Circle(-1, -1, this.velocity, 360, 100, Color.RED);
-		circles.add(circleA);
-		circleB = new Circle(-1, -1, this.velocity, 360, 100, Color.YELLOW);
-		circles.add(circleB);
-		circleC = new Circle(-1, -1, this.velocity, 360, 100, Color.BLUE);
-		circles.add(circleC);
+		/*
+		 * circleA = new Circle(-1, -1); this.setAngle(circleA);
+		 * circles.add(circleA); circleB = new Circle(-1, -1);
+		 * this.setAngle(circleB); circles.add(circleB); circleC = new
+		 * Circle(-1, -1); this.setAngle(circleC); circles.add(circleC);
+		 */
+
+		for (int i = 1; i <= this.numCircles; i++) {
+
+			Circle c = new Circle(-1, -1);
+			this.setAngle(c);
+			circles.add(c);
+
+		}
 
 		h = new Handler();
 		r = new Runnable() {
@@ -76,6 +82,16 @@ public class MyView extends View {
 		h.postDelayed(r, this.FRAME_RATE);
 
 	}
+	
+	@Override
+	public void onSizeChanged(int w, int h, int oldw, int oldh) {
+		
+		super.onSizeChanged(w, h, oldw, oldh);
+		
+		this.width = w;
+		this.height = h;
+		
+	}
 
 	/**
 	 * Get new coordinates for circle
@@ -89,28 +105,34 @@ public class MyView extends View {
 
 			circle.setX(this.getWidth() / 2);
 			circle.setY(this.getHeight() / 2);
-			;
 
 		} else {
 
 			circle.setX(circle.getX() + circle.getXVelocity());
 			circle.setY(circle.getY() + circle.getYVelocity());
 
-			if (circle.getX() > (this.getWidth() - this.getWidth() / 10)
-					|| circle.getX() < 0) {
+			if (circle.getX() > (this.getWidth() - circle.getRadius())
+					|| circle.getX() < circle.getRadius()) {
 
 				circle.setXVelocity(circle.getXVelocity() * -1);
 
 			}
 
-			if (circle.getY() > (this.getHeight() - this.getWidth() / 10)
-					|| circle.getY() < 0) {
+			if (circle.getY() > (this.getHeight() - circle.getRadius())
+					|| circle.getY() < circle.getRadius()) {
 
 				circle.setYVelocity(circle.getYVelocity() * -1);
 
 			}
 
 		}
+
+	}
+
+	private void setAngle(Circle circle) {
+
+		circle.setXVelocity((int) (Math.cos(circle.getDegrees()) * Circle.VELOCITY));
+		circle.setYVelocity((int) (Math.sin(circle.getDegrees()) * Circle.VELOCITY));
 
 	}
 
