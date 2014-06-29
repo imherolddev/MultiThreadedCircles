@@ -15,11 +15,11 @@ import android.view.View;
  * 
  */
 public class MyView extends View {
-	
+
+	private int numCircles = 50;
+
 	private int width;
 	private int height;
-
-	private int numCircles = 100;
 
 	private Paint paint = new Paint();
 
@@ -45,14 +45,6 @@ public class MyView extends View {
 		 * this.setAngle(circleB); circles.add(circleB); circleC = new
 		 * Circle(-1, -1); this.setAngle(circleC); circles.add(circleC);
 		 */
-
-		for (int i = 1; i <= this.numCircles; i++) {
-
-			Circle c = new Circle(-1, -1);
-			this.setAngle(c);
-			circles.add(c);
-
-		}
 
 		h = new Handler();
 		r = new Runnable() {
@@ -82,15 +74,23 @@ public class MyView extends View {
 		h.postDelayed(r, this.FRAME_RATE);
 
 	}
-	
+
 	@Override
 	public void onSizeChanged(int w, int h, int oldw, int oldh) {
-		
+
 		super.onSizeChanged(w, h, oldw, oldh);
 		
 		this.width = w;
 		this.height = h;
-		
+
+		for (int i = 1; i <= this.numCircles; i++) {
+
+			Circle c = new Circle(w, h);
+			this.setAngle(c);
+			circles.add(c);
+
+		}
+
 	}
 
 	/**
@@ -101,31 +101,28 @@ public class MyView extends View {
 	 */
 	private void moveCircle(Circle circle) {
 
-		if (circle.getX() < 0 && circle.getY() < 0) {
+		if (circle.getX() > this.getXBoundary(circle.getRadius())) {
 
-			circle.setX(this.getWidth() / 2);
-			circle.setY(this.getHeight() / 2);
+			circle.setXVelocity(circle.getXVelocity() * -1);
 
-		} else {
+		} else if (circle.getX() < circle.getRadius()) {
 
-			circle.setX(circle.getX() + circle.getXVelocity());
-			circle.setY(circle.getY() + circle.getYVelocity());
-
-			if (circle.getX() > (this.getWidth() - circle.getRadius())
-					|| circle.getX() < circle.getRadius()) {
-
-				circle.setXVelocity(circle.getXVelocity() * -1);
-
-			}
-
-			if (circle.getY() > (this.getHeight() - circle.getRadius())
-					|| circle.getY() < circle.getRadius()) {
-
-				circle.setYVelocity(circle.getYVelocity() * -1);
-
-			}
+			circle.setXVelocity(circle.getXVelocity() * -1);
 
 		}
+
+		if (circle.getY() > this.getYBoundary(circle.getRadius())) {
+
+			circle.setYVelocity(circle.getYVelocity() * -1);
+
+		} else if (circle.getY() < circle.getRadius()) {
+
+			circle.setYVelocity(circle.getYVelocity() * -1);
+
+		}
+
+		circle.setX(circle.getX() + circle.getXVelocity());
+		circle.setY(circle.getY() + circle.getYVelocity());
 
 	}
 
@@ -133,6 +130,18 @@ public class MyView extends View {
 
 		circle.setXVelocity((int) (Math.cos(circle.getDegrees()) * Circle.VELOCITY));
 		circle.setYVelocity((int) (Math.sin(circle.getDegrees()) * Circle.VELOCITY));
+
+	}
+
+	private int getXBoundary(int radius) {
+
+		return this.width - radius;
+
+	}
+
+	private int getYBoundary(int radius) {
+
+		return this.height - radius;
 
 	}
 

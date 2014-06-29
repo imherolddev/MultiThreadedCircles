@@ -34,14 +34,13 @@ public class Circle {
 	 *            - the height to set
 	 * 
 	 */
-	public Circle(int x, int y) {
+	public Circle(int width, int height) {
 
-		this.x = x;
-		this.y = y;
-
-		Circle.VELOCITY = random.nextInt(30) + 20;
+		Circle.VELOCITY = random.nextInt(10) + 20;
 		this.color = (int) ((random.nextDouble() * Color.BLACK) - 1);
 		this.radius = random.nextInt(100) + 25;
+		this.x = this.getRadius() + random.nextInt(width - this.getRadius() * 2);
+		this.y = this.getRadius() + random.nextInt(height - this.getRadius() * 2);
 		this.degrees = random.nextInt(360);
 
 	}
