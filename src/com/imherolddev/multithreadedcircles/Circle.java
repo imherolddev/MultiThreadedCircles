@@ -13,7 +13,7 @@ import android.graphics.Color;
  */
 public class Circle {
 
-	static int VELOCITY;
+	static final int VELOCITY = 15;
 
 	private int x;
 	private int y;
@@ -36,7 +36,6 @@ public class Circle {
 	 */
 	public Circle(int width, int height) {
 
-		Circle.VELOCITY = random.nextInt(10) + 20;
 		this.color = (int) ((random.nextDouble() * Color.BLACK) - 1);
 		this.radius = random.nextInt(100) + 25;
 		this.x = this.getRadius() + random.nextInt(width - this.getRadius() * 2);

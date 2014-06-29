@@ -28,7 +28,7 @@ public class MyView extends View {
 	private Handler h;
 	private Runnable r;
 
-	private final int FRAME_RATE = 20;
+	private final int FRAME_RATE = 16;
 
 	/**
 	 * Constructor with context

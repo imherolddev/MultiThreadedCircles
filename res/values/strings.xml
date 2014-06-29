@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">Multi Threaded Circles</string>
+    <string name="str_action_settings">Settings</string>
 
 </resources>
