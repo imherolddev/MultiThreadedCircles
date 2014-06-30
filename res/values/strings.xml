@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Multi Threaded Circles</string>
+    <string name="app_name">Dream Circles</string>
     <string name="str_action_settings">Settings</string>
+    <string name="key_dream_enable">enable</string>
+    <string name="title_dream_enable">Enable Daydream</string>
+    <string name="summary_dream_enable">Go to the daydream settings to enable Dream Circles</string>
+    <string name="dream_direction">Select Dream Circles from the list, next time your phone dreams it will be Circles!</string>
 
 </resources>
