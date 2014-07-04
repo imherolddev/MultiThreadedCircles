@@ -39,13 +39,6 @@ public class MyView extends View {
 	public MyView(Context context) {
 		super(context);
 
-		/*
-		 * circleA = new Circle(-1, -1); this.setAngle(circleA);
-		 * circles.add(circleA); circleB = new Circle(-1, -1);
-		 * this.setAngle(circleB); circles.add(circleB); circleC = new
-		 * Circle(-1, -1); this.setAngle(circleC); circles.add(circleC);
-		 */
-
 		h = new Handler();
 		r = new Runnable() {
 
@@ -79,9 +72,11 @@ public class MyView extends View {
 	public void onSizeChanged(int w, int h, int oldw, int oldh) {
 
 		super.onSizeChanged(w, h, oldw, oldh);
-		
+
 		this.width = w;
 		this.height = h;
+
+		circles.clear();
 
 		for (int i = 1; i <= this.numCircles; i++) {
 
